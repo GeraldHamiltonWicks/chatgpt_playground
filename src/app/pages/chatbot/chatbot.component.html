@@ -1,0 +1,18 @@
+<div class="chat">
+    <div class="message-list">
+        <ng-container *ngFor="let message of messages$ | async">
+            <div *ngIf="message.owner === 'robot'" class="text-container robot-container">
+                <p class="text">{{ message.text }}</p>
+            </div>
+            <div *ngIf="message.owner === 'person'" class="text-container person-container">
+                <p class="text">{{ message.text }}</p>
+            </div>
+        </ng-container>
+        <div *ngIf="isToShowSpinner$ | async" class="spinner"></div>        
+    </div>
+
+    <div class="message-field">
+        <input [formControl]="formMessage" type="text" placeholder="Type something..." (keydown.enter)="onSendMessageClick()">
+        <button (click)="onSendMessageClick()">Send</button>
+    </div>
+</div>

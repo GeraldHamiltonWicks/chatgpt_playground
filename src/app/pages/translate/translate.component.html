@@ -1,0 +1,33 @@
+<div class="container-list">
+    <div class="container">
+        <mat-form-field appearance="legacy">
+            <mat-label>Language</mat-label>
+            <mat-select [formControl]="form.controls.languageToTranslate">
+                <mat-option *ngFor="let language of languages" [value]="language">
+                    {{language}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <textarea #words matInput placeholder="" rows="8"></textarea>
+    </div>
+    <div class="container">
+        <mat-form-field appearance="legacy">
+            <mat-label>Language</mat-label>
+            <mat-select [formControl]="form.controls.translatedLanguage">
+                <mat-option *ngFor="let language of languages" [value]="language">
+                    {{language}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <textarea matInput placeholder="Translation" rows="8" disabled [value]="(translation$ | async)"></textarea>
+    </div>
+</div>
+<div class="button-container">
+    <button (click)="translate(words.value)" mat-raised-button color="primary">
+        Translate 
+    </button>
+    <span *ngIf="isToShowSpinner$ | async" class="spinner"></span>
+</div>
+<mat-error *ngIf="isToShowError$ | async">
+    Try again, some field is empty.
+</mat-error>
